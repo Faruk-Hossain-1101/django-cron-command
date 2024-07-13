@@ -27,6 +27,7 @@ jobs:
 
       - name: Build package
         run: |
+          cd django_cron_command
           python setup.py sdist bdist_wheel
 
       - name: Publish package to PyPI
@@ -35,4 +36,5 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           pip install twine
+          cd django_cron_command
           twine upload dist/*
