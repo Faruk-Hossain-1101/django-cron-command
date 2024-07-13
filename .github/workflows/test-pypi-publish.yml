@@ -27,12 +27,14 @@ jobs:
 
       - name: Build package
         run: |
+          cd django_cron_command
           python setup.py sdist bdist_wheel
 
       - name: Publish package to PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           pip install twine
-          twine upload dist/*
+          cd django_cron_command
+          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
